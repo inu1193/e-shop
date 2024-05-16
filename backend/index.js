@@ -11,17 +11,16 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-//Database Connection with MongoDB
-mongoose.connect(
-  "mongodb+srv://Inayath:Inayath,2001@cluster0.dea4q8c.mongodb.net/e-commerce"
-);
+// Database Connection with MongoDB
+mongoose.connect("mongodb://localhost:27017/e-commerce");
+
 // API Creation
 
 app.get("/", (req, res) => {
   res.send("Express App is Running");
 });
 
-//Image Storage Engine
+// Image Storage Engine
 
 const storage = multer.diskStorage({
   destination: "./upload/images",
@@ -35,7 +34,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-//Creating upload end point for images
+// Creating upload endpoint for images
 
 app.use("/images", express.static("upload/images"));
 
@@ -46,7 +45,7 @@ app.post("/upload", upload.single("product"), (req, res) => {
   });
 });
 
-//Schema for Creating Products
+// Schema for Creating Products
 const Product = mongoose.model("Product", {
   id: {
     type: Number,
@@ -85,7 +84,7 @@ app.post("/addproduct", async (req, res) => {
   res.json({ success: true, name: req.body.name });
 });
 
-//Creating API for deleting Product
+// Creating API for deleting Product
 
 app.post("/removeproduct", async (req, res) => {
   await Product.findOneAndDelete({ id: req.body.id });
@@ -93,7 +92,7 @@ app.post("/removeproduct", async (req, res) => {
   res.json({ success: true, name: req.body.name });
 });
 
-//Creating API for getting all products
+// Creating API for getting all products
 
 app.get("/allproducts", async (req, res) => {
   let products = await Product.find({});
