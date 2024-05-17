@@ -27,7 +27,5 @@ This is an e-commerce website project built with React.js on the frontend and No
   - MongoDB (for data storage)
   - JWT (for authentication)
 - **Other**:
-  - Axios (for making HTTP requests)
-  - bcrypt (for password hashing)
   - Multer (for handling file uploads)
-  - Cloudinary (for storing images)
+
