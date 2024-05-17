@@ -1,4 +1,4 @@
-# E-Commerce Website
+# E-Shop Website
 
 ## Overview
 
