@@ -16,7 +16,7 @@ const LoginSignup = () => {
  const login = async () =>{
   console.log("Login executed",formData)
   let responseData;
-   await fetch('http://localhost:3000/login',{
+   await fetch('https://e-shop-v7kq.onrender.com/login',{
     method:'POST',
     headers:{
       Accept:'application/form-data',
@@ -37,7 +37,7 @@ const LoginSignup = () => {
 const signup = async () =>{
    console.log("SignUp executed",formData)
    let responseData;
-   await fetch('http://localhost:3000/signup',{
+   await fetch('https://e-shop-v7kq.onrender.com/signup',{
     method:'POST',
     headers:{
       Accept:'application/form-data',
