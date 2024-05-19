@@ -43,12 +43,12 @@ const upload = multer({ storage: storage });
 
 // Creating upload endpoint for images
 
-app.use("/images", express.static("upload/images"));
+app.use("/images", express.static("./upload/images"));
 
 app.post("/upload", upload.single("product"), (req, res) => {
   res.json({
     success: 1,
-    image_url: `https://e-shop-v7kq.onrender.com/images/${req.file.filename}`,
+    image_url: `http://localhost:3000/images/${req.file.filename}`,
   });
 });
 
