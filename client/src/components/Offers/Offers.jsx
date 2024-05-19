@@ -6,9 +6,9 @@ const Offers = () => {
     <div className='offers'>
       <div className="offers-left">
       <h1>Exclusive</h1>
-      <h1>Offers For You</h1>
-      <p>ONLY ON BEST SELLING PRODUCTS</p>
-      <button>Check Now</button>
+      <h1>Offers </h1>
+      <p>ON BEST SELLING PRODUCTS</p>
+      {/* <button>Check Now</button> */}
       </div>
       
       <div className="offers-right">

@@ -18,10 +18,10 @@ const Navbar= () =>{
 
     return (
     <div className='navbar'>
-        <div className='nav-logo'>
-            <img src={logo} alt='' />
-            <p>E-Shop</p>
-        </div>
+        <Link to='/' className='nav-logo'>
+            <img className='nav-log-text' src={logo} alt='' />
+            <p className='nav-logo-text'>E-Shop</p>
+        </Link>
         <img className='nav-dropdown' src={nav_dropdown} onClick={dropdown_toggle} alt="" />
             <ul ref={menuRef} className='nav-menu'>
                 <li onClick={()=>{setMenu("shop")}}><Link style={{textDecoration: 'none '}} to='/'>Shop</Link>{menu==="shop"?<hr />:<></>}</li>
