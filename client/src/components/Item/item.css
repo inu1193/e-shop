@@ -1,5 +1,7 @@
 .item{
     width: 280px;
+    text-decoration: none;
+    color: black;
 
 }
 .item img{
