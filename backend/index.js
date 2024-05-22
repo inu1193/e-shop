@@ -5,21 +5,25 @@ import multer from "multer";
 import path from "path";
 import cors from "cors";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 const dbConnectionUrl = process.env.MONGO_URL;
 const jwtSecret = process.env.JWT_SECRET;
 const port = process.env.PORT || 3000;
+
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://remarkable-belekoy-4e69bd.netlify.app", // Replace with your Netlify site URL
+    optionsSuccessStatus: 200,
+  })
+);
 
 // Database Connection with MongoDB
-mongoose
-  .connect(dbConnectionUrl, { serverSelectionTimeoutMS: 5000 })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+mongoose.connect(dbConnectionUrl);
 
 // API Creation
 
@@ -43,12 +47,12 @@ const upload = multer({ storage: storage });
 
 // Creating upload endpoint for images
 
-app.use("/images", express.static("./upload/images"));
+app.use("/images", express.static("upload/images"));
 
 app.post("/upload", upload.single("product"), (req, res) => {
   res.json({
     success: 1,
-    image_url: `http://localhost:3000/images/${req.file.filename}`,
+    image_url: `https://e-shop-dlum.onrender.com/images/${req.file.filename}`,
   });
 });
 
