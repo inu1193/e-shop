@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 import defaultImage from '../Assets/default_image.jpg'; // Ensure the correct path to your default image
 
 const Item = (props) => {
-  const handleImageError = (e) => {
-    e.target.src = defaultImage;
-  };
+  // const handleImageError = (e) => {
+  //   e.target.src = defaultImage;
+  // };
 
   return (
     <Link to={`/product/${props.id}`} className='item'>
       <img 
         src={props.image} 
-        onError={handleImageError} 
+        // onError={handleImageError} 
         onClick={() => window.scrollTo(0, 0)} 
         alt={props.name}
       />

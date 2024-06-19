@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './popular.css'
 import Item from '../Item/Item'
-// import data_product from '../Assets/data'
+import data_product from '../Assets/data'
 
 const Popular = () => {
 
