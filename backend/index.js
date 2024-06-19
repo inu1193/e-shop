@@ -5,21 +5,29 @@ import multer from "multer";
 import path from "path";
 import cors from "cors";
 import dotenv from "dotenv";
+import {v2 as cloudinary} from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 dotenv.config();
 
 const dbConnectionUrl = process.env.MONGO_URL;
 const jwtSecret = process.env.JWT_SECRET;
 const port = process.env.PORT || 3000;
-
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 const app = express();
 
 app.use(express.json());
 app.use(
-  cors({
-    origin: "https://remarkable-belekoy-4e69bd.netlify.app", // Replace with your Netlify site URL
-    optionsSuccessStatus: 200,
-  })
+  cors(
+  //   {
+  //   origin: "https://remarkable-belekoy-4e69bd.netlify.app", // Replace with your Netlify site URL
+  //   optionsSuccessStatus: 200,
+  // }
+  )
 );
 
 // Database Connection with MongoDB
@@ -33,27 +41,47 @@ app.get("/", (req, res) => {
 
 // Image Storage Engine
 
-const storage = multer.diskStorage({
-  destination: "./upload/images",
-  filename: (req, file, cb) => {
-    return cb(
-      null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-    );
+// const storage = multer.diskStorage({
+//   destination: "./upload/images",
+//   filename: (req, file, cb) => {
+//     return cb(
+//       null,
+//       `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+//     );
+//   },
+// });
+
+// const upload = multer({ storage: storage });
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "images",
+    format: async (req, file) => "jpg",
+    public_id: (req, file) => `${file.fieldname}_${Date.now()}`,
   },
 });
 
 const upload = multer({ storage: storage });
 
+
+
 // Creating upload endpoint for images
 
-app.use("/images", express.static("upload/images"));
+
 
 app.post("/upload", upload.single("product"), (req, res) => {
-  res.json({
-    success: 1,
-    image_url: `https://e-shop-dlum.onrender.com/images/${req.file.filename}`,
-  });
+  if (req.file && req.file.path) {
+    res.json({
+      success: 1,
+      image_url: req.file.path,
+    });
+  } else {
+    res.status(500).json({
+      success: 0,
+      message: "Image upload failed",
+    });
+  }
 });
 
 // Schema for Creating Products
